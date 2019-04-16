@@ -50,18 +50,15 @@ class HumanPlayer < Player
   	@weapon_level = 1
   end
 
-  def show_state
+  def show_state #ajout du niveau de l'arme
     puts "#{@name} a #{@life_points} point de vie et une arme de niveau #{@weapon_level}!!"
   end
 
+  def compute_damage # il faut multiplier le dommage causé avec le niveau de l'arme
+    rand(1..6) * @weapon_level
+  end
 
-
-
-
-
-
-
-
+  
 
 
 
