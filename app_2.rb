@@ -11,46 +11,83 @@ puts "| The goal is simply to STAY ALIVE ...     |"
 puts " =========================================="
 puts "\n "
 
-def new_human_player #création de l'HumanPlayer (interaction avec l'utilisateur)
+ #création de l'HumanPlayer (interaction avec l'utilisateur)
   puts "What's your name ?"
   print ">"
   @name = gets.chomp
   human_player = HumanPlayer.new(@name)
   puts "\n\n"
 
-  #pour que le joueur humain puisse être utiliser ensuite
-  return human_player
-end
 
 
-def ennemies
+
   ennemies = []
-  ennemies << player1 = Player.new("Gus")
-  ennemies << player2 = Player.new("Xi-xi")
+  player1 = Player.new("Gus")
+  player2 = Player.new("Xi-xi")
+  ennemies << player1
+  ennemies << player2
   
   #Pour afficher que les noms des deux ennemies. et pas leur ID de Player.new.
   ennemies_name = ennemies.map { |ennemie| ennemie.name  } 
   puts "Tu vas affronter #{ennemies_name.join(" et ")} !"
 
   #pour que le tableau puisse être utiliser par la suite.
-  return ennemies
-end
 
 
-def fight
+
+
   
   while human_player.life_points > 0 && (player1.life_points > 0 || player2.life_points > 0)
   	puts "------------------------------------------"
-  	puts "Voici ton état :"
+  	puts "Voici ton état : \n"
   	human_player.show_state
 
-  	puts "Quelle action veux-tu effectuer ? \n\n a - chercher une meilleure arme \n s - chercher de quoi te soigner \n\n attaquer un adversaire : \n 0 - #{player1.name} qui a #{player1.show_state} points de vie. \n 1 - #{player2.name} qui a #{player2.show_state} points de vie."
+
+  	puts "\n Quelle action veux-tu effectuer ? \n\n a - chercher une meilleure arme \n s - chercher de quoi te soigner \n\n attaquer un adversaire : \n 0 - #{player1.show_state}  \n 1 - #{player2.show_state} "
   	print ">"
-  	gets 
+  	choice = gets.chomp 
+
+  	if choice == "a"
+  	  human_player.search_weapon
+  	end
+
+  	if choice == "s"
+  	  human_player.search_health_pack
+  	end
+
+  	if choice == "0"
+  	  human_player.attack(player1)
+  	end
+
+  	if choice == "1"
+  	  human_player.attack(player2)
+  	end
+    
+    gets 
+
+  	puts "\n ------------------------------------------\n C'est maintenant aux autres joueurs d'attaquer : \n\n"
+  	ennemies.each do |player|
+      if player.life_points <= 0 
+      	puts "#{player.name} est mort il ne peux plus t'attaquer \n \n"
+    	next
+      else 
+        player.attack(human_player)
+        puts "\n"
+        gets
+      end
+       
+    end
+
+    
+
+
   end
 
 
-def end_of_game
+
+
+
+
   
   puts "\n The game is over.."
 
@@ -59,8 +96,10 @@ def end_of_game
   else 
   	puts "Bouuuuuuuh You suck balls and got fucked by those basic bitches !"
   end
-end
 
-human_player = new_human_player
-ennemies
-binding.pry
+
+#human_player = new_human_player
+#ennemies = ennemies
+#fight(human_player, ennemies)
+#end_of_game
+#binding.pry

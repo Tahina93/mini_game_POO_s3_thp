@@ -10,12 +10,12 @@ class Player
   end
 
   def show_state
-    puts "#{@name} a #{@life_points} point de vie !!"
+    "#{@name} a #{@life_points} point de vie !!"
   end
 
   def get_damage(damage)
   	@life_points = @life_points - damage #calcul le nombre de vies qui restent au joueur quand attaqué.
-  	#puts "#{@name} a perdu #{damage} points de vie et il lui en reste #{@life_points} !!" 
+  	puts "#{@name} a perdu #{damage} points de vie et il lui en reste #{@life_points} !!" 
 
   	if @life_points <= 0 #vérifie si le joueur est mort ou pas.
   		puts "#{@name} a été tué..."

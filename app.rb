@@ -12,8 +12,8 @@ puts "#{player1.name} et #{player2.name} vont s'affronter sans pitié !!!"
 while player1.life_points > 0 && player2.life_points >0 
   puts "-----------------------------------"
   puts "Voici l'état de nos joueurs :"
-  player1.show_state
-  player2.show_state
+  puts player1.show_state
+  puts player2.show_state
   puts " "
 
   puts "Place à l'attaque !!!!!"
