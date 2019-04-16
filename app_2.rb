@@ -32,44 +32,55 @@ puts "\n "
   ennemies_name = ennemies.map { |ennemie| ennemie.name  } 
   puts "Tu vas affronter #{ennemies_name.join(" et ")} !"
   
+  #pour faire des pauses dans le jeu et le rendre plus clair
   print "\n Tap ENTER to continue\n"
-  gets #pour faire des pauses dans le jeu et le rendre plus clair
+  gets 
 
- #Début du jeu interactif 
+  #Début du jeu interactif 
   while human_player.life_points > 0 && (player1.life_points > 0 || player2.life_points > 0)
   	puts "------------------------------------------"
   	puts "Voici ton état : \n"
   	human_player.show_state
 
 
+  	#menu d'action que l'human player peut effectuer
   	puts "\n Quelle action veux-tu effectuer ? \n\n a - chercher une meilleure arme \n s - chercher de quoi te soigner \n\n attaquer un adversaire : \n 0 - #{player1.show_state}  \n 1 - #{player2.show_state} "
   	print ">"
   	choice = gets.chomp 
 
+  	#appelle la methode pour recupérer des armes
   	if choice == "a"
   	  human_player.search_weapon
   	end
 
+  	#appelle la methode pour récupérer des vies
   	if choice == "s"
   	  human_player.search_health_pack
   	end
 
+  	#permet d'attaquer le joueur 1
   	if choice == "0"
   	  human_player.attack(player1)
   	end
 
+  	#permet d'attaquer le joueur 2
   	if choice == "1"
   	  human_player.attack(player2)
   	end
     
+    #Pour avoir plus de visibilité dans le jeu
     print "\n Tap ENTER to continue\n"
     gets 
 
+  	#Partie ou les joueurs automatiques attaquent
   	puts "\n ------------------------------------------\n C'est maintenant aux autres joueurs d'attaquer : \n\n"
+  	#boucle pour que chacun des ennemies attaquent le joueur humain.
   	ennemies.each do |player|
+      #Si jamais un des joueur meurt, qu'il ne puisse plus attaquer
       if player.life_points <= 0 
       	puts "#{player.name} est mort il ne peux plus t'attaquer \n \n"
-    	next
+    	next #-----> si un seul joueu est mort, l'autre attaque toujours (different de "break" qui sort carrement de la boucle et ça foire si l'un des joueur n'est pas mort)
+      #si pas mort, il(s) attaquent
       else 
         player.attack(human_player)
         puts "\n"
@@ -78,10 +89,6 @@ puts "\n "
       end
        
     end
-
-    
-
-
   end
 
 
@@ -89,7 +96,7 @@ puts "\n "
 
 
 
-  
+  #FIN DU JEU
   puts "\n The game is over.."
 
   if human_player.life_points > 0
@@ -99,8 +106,4 @@ puts "\n "
   end
 
 
-#human_player = new_human_player
-#ennemies = ennemies
-#fight(human_player, ennemies)
-#end_of_game
 #binding.pry
