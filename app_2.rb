@@ -16,11 +16,12 @@ puts "\n "
   print ">"
   @name = gets.chomp
   human_player = HumanPlayer.new(@name)
-  puts "\n\n"
+  puts "\n"
 
 
 
 
+  #création des player automatiques et mise de leur info dans un array
   ennemies = []
   player1 = Player.new("Gus")
   player2 = Player.new("Xi-xi")
@@ -30,13 +31,11 @@ puts "\n "
   #Pour afficher que les noms des deux ennemies. et pas leur ID de Player.new.
   ennemies_name = ennemies.map { |ennemie| ennemie.name  } 
   puts "Tu vas affronter #{ennemies_name.join(" et ")} !"
-
-  #pour que le tableau puisse être utiliser par la suite.
-
-
-
-
   
+  print "\n Tap ENTER to continue\n"
+  gets #pour faire des pauses dans le jeu et le rendre plus clair
+
+ #Début du jeu interactif 
   while human_player.life_points > 0 && (player1.life_points > 0 || player2.life_points > 0)
   	puts "------------------------------------------"
   	puts "Voici ton état : \n"
@@ -63,6 +62,7 @@ puts "\n "
   	  human_player.attack(player2)
   	end
     
+    print "\n Tap ENTER to continue\n"
     gets 
 
   	puts "\n ------------------------------------------\n C'est maintenant aux autres joueurs d'attaquer : \n\n"
@@ -73,6 +73,7 @@ puts "\n "
       else 
         player.attack(human_player)
         puts "\n"
+        print "\n Tap ENTER to continue \n"
         gets
       end
        
